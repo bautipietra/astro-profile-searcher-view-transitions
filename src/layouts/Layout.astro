@@ -5,6 +5,7 @@ interface Props {
 
 const { title } = Astro.props;
 import { ViewTransitions } from 'astro:transitions';
+import '../css/styles.css';
 ---
 
 <!doctype html>
@@ -33,21 +34,6 @@ import { ViewTransitions } from 'astro:transitions';
 	</head>
 	<body class='bg-zinc-100 text-zinc-700'>
 		<slot />
-		<style is:global>
-			html {
-				font-family: system-ui, sans-serif;
-			}
-			code {
-				font-family:
-					Menlo,
-					Monaco,
-					Lucida Console,
-					Liberation Mono,
-					DejaVu Sans Mono,
-					Bitstream Vera Sans Mono,
-					Courier New,
-					monospace;
-			}
-		</style>
+		<script src='../scripts/transition.ts'></script>
 	</body>
 </html>
