@@ -1,0 +1,15 @@
+---
+interface Props {
+	name?: string;
+	image?: string;
+}
+
+const { name, image } = Astro.props;
+---
+
+<img
+	src={image}
+	alt={name}
+	class='rounded-lg m-auto w-full'
+	transition:name={image}
+/>

@@ -1,0 +1,71 @@
+---
+import ProfileImage from '../../components/ProfileImage.astro';
+import Tittle from '../../components/Tittle.astro';
+import data from '../../db/db.json';
+import type { IProfile } from '../../interfaces/Profile';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+	return [
+		{ params: { id: '977b7085-85fa-43df-aca4-5828af77c6df' } },
+		{ params: { id: '8ddc2e5b-7469-4872-b096-17686302299c' } },
+		{ params: { id: '30c8d8da-6a34-47f0-a839-ad972efb000f' } },
+		{ params: { id: '1c821b6c-66fa-44dd-82aa-ffe6a12498fa' } },
+		{ params: { id: '578748ce-7b59-448a-bc2c-213f925ce054' } },
+		{ params: { id: '683f6ac3-ef78-4c83-a3fa-ee2c40beba80' } },
+		{ params: { id: '7de6f6ff-2705-4531-95a1-a0418409dd56' } },
+		{ params: { id: 'a90fe0f3-9450-4505-989d-93fbfde15630' } },
+		{ params: { id: '4d0277e4-9ca0-4786-af19-ee83e82453db' } },
+		{ params: { id: 'e59a17bf-b697-4d00-a8f8-b01bcd820337' } },
+		{ params: { id: 'b316d3c2-4b6b-499c-9b82-363c2395a871' } },
+		{ params: { id: '946c40aa-574a-48ce-883b-081027dbf058' } },
+		{ params: { id: '034b0b43-1bb9-481d-88d1-2240244f47d5' } },
+		{ params: { id: '345e5415-1202-4812-ae9b-01014d0d21b2' } },
+		{ params: { id: '8d937add-217f-4330-ab7f-ef047331b780' } },
+		{ params: { id: '6e87c13b-4b9b-4514-b290-ce21313dda64' } },
+		{ params: { id: 'b6e9d1a6-627c-4002-bf3b-5db1ef6d8230' } },
+		{ params: { id: '74496b9c-8e9b-4b31-90a0-81defc7eab99' } },
+		{ params: { id: '5a280996-f071-4a7b-9dc0-4c580505baac' } },
+		{ params: { id: 'e887cb05-b1cd-4f66-a484-57ad72821582' } }
+	];
+}
+
+const { id } = Astro.params;
+const profile: IProfile | undefined = (data as unknown as IProfile[]).find(
+	(e: IProfile) => e.login.uuid == id
+);
+---
+
+<Layout title={'@' + profile?.login.username}>
+	<main class='grid'>
+		<div class='p-4 max-sm:text-center'>
+			<Tittle size='3' />
+		</div>
+		<div class='max-w-md m-auto my-16 w-full grid gap-4'>
+			<div class='m-auto w-full max-w-xs grid gap-4 text-center p-2'>
+				<div>
+					<p class='text-3xl font-bold'>
+						{profile?.name.first + ' ' + profile?.name.last}
+					</p>
+					<p class='text-lg text-zinc-600'>@{profile?.login.username}</p>
+				</div>
+				<ProfileImage
+					image={profile?.picture.large}
+					name={profile?.name.first}
+				/>
+				<p class='text-lg'>
+					<span class='font-bold'>{profile?.location.street.number}</span>
+					 Followers
+				</p>
+			</div>
+			<ul class='text-lg font-medium text-center'>
+				<li>
+					📍{profile?.location.country}, {profile?.location.city}
+				</li>
+				<li>👴 {profile?.dob.age} years</li>
+				<li>📱 {profile?.cell}</li>
+				<li>📧 {profile?.email}</li>
+			</ul>
+		</div>
+	</main>
+</Layout>

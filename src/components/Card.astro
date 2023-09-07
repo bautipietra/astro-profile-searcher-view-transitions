@@ -1,0 +1,27 @@
+---
+import ProfileImage from './ProfileImage.astro';
+interface Props {
+	name: string;
+	image: string;
+	followers: number;
+	id: string;
+}
+
+const { name, image, followers, id } = Astro.props;
+---
+
+<div class='p-4 grid gap-4 bg-slate-200 rounded-lg items-center text-center'>
+	<ProfileImage
+		image={image}
+		name={name}
+	/>
+	<p class='text-xl font-bold'>{name}</p>
+	<p><span class='font-bold'>{followers}</span> Followers</p>
+	<a
+		href={`/profile/${id}`}
+		class='bg-gradient-to-r from-cyan-400 to-cyan-600 py-2 rounded-lg font-semibold text-lg text-white hover:opacity-80 transition-opacity'
+		>View profile</a
+	>
+</div>
+
+<style></style>
